@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+ 
+{% block title %}User{% endblock %}
+ 
+{% block body %}
+    Entrez un nouvel utilisateur
+    {{ form_start(userForm) }}
+        {{ form_row(userForm.email) }}
+        {{ form_row(userForm.first_name) }}
+        {{ form_row(userForm.last_name) }}
+        {{ form_row(userForm.tasks) }}
+        <button type="submit">Enregistrer</button>
+    {{ form_end(userForm) }}
+{% endblock %}

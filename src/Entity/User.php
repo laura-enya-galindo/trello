@@ -7,6 +7,9 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
+// Pour pouvoir ajouter des contraintes sur les input dans le formulaire UserType sur UserController
+use Symfony\Component\Validator\Constraints as Assert;
+
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`user`')]
 class User
@@ -17,12 +20,15 @@ class User
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\Email(['message' => 'The email "{{ value }}" is not a valid email.'])]
     private ?string $email = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\Length(['min' => 2, 'max' => 50, 'minMessage' => 'The first name must be at least {{ limit }} characters long', 'maxMessage' => 'The first name cannot be longer than {{ limit }} characters'])]
     private ?string $first_name = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\Length(['min' => 2, 'max' => 50, 'minMessage' => 'The last name must be at least {{ limit }} characters long', 'maxMessage' => 'The last name cannot be longer than {{ limit }} characters'])]
     private ?string $last_name = null;
 
     #[ORM\ManyToMany(targetEntity: Task::class, inversedBy: 'users')]

@@ -15,4 +15,18 @@ class HomeController extends AbstractController
             'controller_name' => 'HomeController',
         ]);
     }
+
+    /**
+    *@Route("/victorious/elephant/book", name="app_victorious_elephant_test")
+    */
+    public function editUser(): Response
+    {
+        $user = new User();  
+        $form = $this->createForm(UserType::class, $user);
+
+        return $this->render('user.html.twig',
+        [
+            'userForm' => $form->createView(),
+        ]);
+    }
 }

@@ -32,6 +32,9 @@ security:
     access_control:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
+        # Seulement un utilisateur connecté peut accéder au Board Controller
+        - path: ^/login, roles: PUBLIC_ACCESS
+        - path: ^/board, roles: ROLE_USER
 
 when@test:
     security:

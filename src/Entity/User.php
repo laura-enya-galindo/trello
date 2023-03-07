@@ -35,6 +35,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     // #[Assert\Length(['min': 2, 'max': 50, 'minMessage': 'The last name must be at least {{ limit }} characters long', 'maxMessage' => 'The last name cannot be longer than {{ limit }} characters'])]
     private ?string $last_name = null; // nom
 
+    #[ORM\Column(type: 'json')]
+    private $roles = [];
+
+    #[ORM\Column]
+    private ?string $password;
+
     #[ORM\ManyToMany(targetEntity: Task::class, inversedBy: 'users')]
     private Collection $tasks;
 
@@ -84,6 +90,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+
     /**
      * @return Collection<int, Task>
      */
@@ -106,6 +113,70 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->tasks->removeElement($task);
 
         return $this;
+    }
+
+    /**
+     * The public representation of the user (e.g. a username, an email address, etc.)
+     *
+     * @see UserInterface
+     */
+    public function getUserIdentifier(): string
+    {
+        return (string) $this->email;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function getRoles(): array
+    {
+        $roles = $this->roles;
+        // guarantee every user at least has ROLE_USER
+        $roles[] = 'ROLE_USER';
+
+        return array_unique($roles);
+    }
+
+    public function setRoles(array $roles): self
+    {
+        $this->roles = $roles;
+
+        return $this;
+    }
+
+    /**
+     * @see PasswordAuthenticatedUserInterface
+     */
+    public function getPassword(): string
+    {
+        return $this->password;
+    }
+
+    public function setPassword(string $password): self
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+
+    /**
+     * Returning a salt is only needed if you are not using a modern
+     * hashing algorithm (e.g. bcrypt or sodium) in your security.yaml.
+     *
+     * @see UserInterface
+     */
+    public function getSalt(): ?string
+    {
+        return null;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function eraseCredentials()
+    {
+        // If you store any temporary, sensitive data on the user, clear it here
+        // $this->plainPassword = null;
     }
     
 }

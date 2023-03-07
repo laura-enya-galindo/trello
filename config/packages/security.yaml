@@ -2,23 +2,29 @@ security:
     # https://symfony.com/doc/current/security.html#registering-the-user-hashing-passwords
     password_hashers:
         Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'auto'
+    
     # https://symfony.com/doc/current/security.html#loading-the-user-the-user-provider
     providers:
-        users_in_memory: { memory: null }
+        app_user_provider:
+            entity:
+                # the class of the entity that represents users
+                class: App\Entity\User
+                # the property to query by - e.g. email, username, etc
+                property: email
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
             lazy: true
-            provider: users_in_memory
+            provider: app_user_provider
             form_login:
                 # "app_login" is the name of the route created previously
                 login_path: app_login
                 check_path: app_login
                 # Par défaut, l'utilisateur est redirigé vers le Board Controller après connexion
                 default_target_path: app_board
-                # Toujours utiliser la redirection par défaut après un login réussi, peu importe l'URL demandé (requested) précédemment
+                # Toujours utiliser la redirection par défaut après un login réussi, peu importe l'URL requêtée précédemment
                 always_use_default_target_path: true
 
             # activate different ways to authenticate
@@ -31,6 +37,7 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
         # Seulement un utilisateur connecté peut accéder au Board Controller
+        # Si un utilisateur non connecté fait une requête URL vers le Board Controller, alors il sera redirigé vers le Login Controller
         - { path: ^/login, roles: PUBLIC_ACCESS }
         - { path: ^/board, roles: ROLE_USER }
 

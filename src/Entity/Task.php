@@ -17,26 +17,26 @@ class Task
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $title = null;
+    private ?string $title = null;                      // titre
 
     #[ORM\Column(type: Types::TEXT)]
-    private ?string $content = null;
+    private ?string $content = null;                    // contenu
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $created_at = null;
+    private ?\DateTimeInterface $created_at = null;     // date de création
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $updated_at = null;
+    private ?\DateTimeInterface $updated_at = null;     // date de mise à jour
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
-    private ?\DateTimeInterface $completed_at = null;
+    private ?\DateTimeInterface $completed_at = null;   // date de fin prévue
 
     #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'tasks')]
     private Collection $users;
 
     #[ORM\ManyToOne(inversedBy: 'task')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Status $status = null;
+    private ?Status $status = null;                     // statut
 
     public function __construct()
     {

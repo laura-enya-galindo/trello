@@ -20,16 +20,16 @@ class User
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Assert\Email(['message': 'The email "{{ value }}" is not a valid email.'])]
-    private ?string $email = null;
+    // #[Assert\Email('message': 'The email "{{ value }}" is not a valid email.')]
+    private ?string $email = null;      // adresse mail
 
     #[ORM\Column(length: 255)]
-    #[Assert\Length(['min': 2, 'max': 50, 'minMessage': 'The first name must be at least {{ limit }} characters long', 'maxMessage' => 'The first name cannot be longer than {{ limit }} characters'])]
-    private ?string $first_name = null;
+    // #[Assert\Length(['min': 2, 'max': 50, 'minMessage': 'The first name must be at least {{ limit }} characters long', 'maxMessage' => 'The first name cannot be longer than {{ limit }} characters'])]
+    private ?string $first_name = null; // prénom
 
     #[ORM\Column(length: 255)]
-    #[Assert\Length(['min': 2, 'max': 50, 'minMessage': 'The last name must be at least {{ limit }} characters long', 'maxMessage' => 'The last name cannot be longer than {{ limit }} characters'])]
-    private ?string $last_name = null;
+    // #[Assert\Length(['min': 2, 'max': 50, 'minMessage': 'The last name must be at least {{ limit }} characters long', 'maxMessage' => 'The last name cannot be longer than {{ limit }} characters'])]
+    private ?string $last_name = null; // nom
 
     #[ORM\ManyToMany(targetEntity: Task::class, inversedBy: 'users')]
     private Collection $tasks;

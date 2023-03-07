@@ -16,7 +16,7 @@ class Status
     private ?int $id = null;
 
     #[ORM\Column(length: 100)]
-    private ?string $label = null;
+    private ?string $label = null; // TO-DO: ajouter les valeurs "Nouveau", "En cours", "Terminé"
 
     #[ORM\OneToMany(mappedBy: 'status', targetEntity: Task::class, orphanRemoval: true)]
     private Collection $task;

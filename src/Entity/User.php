@@ -6,6 +6,7 @@ use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 // Pour pouvoir ajouter des contraintes sur les input dans le formulaire UserType sur UserController
 use Symfony\Component\Validator\Constraints as Assert;
@@ -16,6 +17,8 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`user`')]
+# Afin de s'assurer qu'il n'y aura pas de doublons parmi les comptes
+#[UniqueEntity(fields: ['email'], message: 'Il existe déjà un compte avec cette adresse email.')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -24,15 +27,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    // #[Assert\Email('message': 'The email "{{ value }}" is not a valid email.')]
-    private ?string $email = null;      // adresse mail
+    private ?string $email = null;     // adresse mail
 
     #[ORM\Column(length: 255)]
-    // #[Assert\Length(['min': 2, 'max': 50, 'minMessage': 'The first name must be at least {{ limit }} characters long', 'maxMessage' => 'The first name cannot be longer than {{ limit }} characters'])]
-    private ?string $first_name = null; // prénom
+    private ?string $first_name = null;// prénom
 
     #[ORM\Column(length: 255)]
-    // #[Assert\Length(['min': 2, 'max': 50, 'minMessage': 'The last name must be at least {{ limit }} characters long', 'maxMessage' => 'The last name cannot be longer than {{ limit }} characters'])]
     private ?string $last_name = null; // nom
 
     #[ORM\Column(type: 'json')]

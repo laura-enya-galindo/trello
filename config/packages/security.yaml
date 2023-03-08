@@ -26,6 +26,12 @@ security:
                 default_target_path: app_board
                 # Toujours utiliser la redirection par défaut après un login réussi, peu importe l'URL requêtée précédemment
                 always_use_default_target_path: true
+            
+            logout:
+                path: app_logout
+
+                # Après déconnexion, l'utilisateur est redirigé vers la page de connexion
+                target: app_login
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall
@@ -38,8 +44,9 @@ security:
     access_control:
         # Seulement un utilisateur connecté peut accéder au Board Controller
         # Si un utilisateur non connecté fait une requête URL vers le Board Controller, alors il sera redirigé vers le Login Controller
-        - { path: ^/login, roles: PUBLIC_ACCESS }
-        - { path: ^/register, roles: PUBLIC_ACCESS }
+        # - { path: ^/login, roles: PUBLIC_ACCESS }
+        # - { path: ^/logout, roles: PUBLIC_ACCESS }
+        # - { path: ^/register, roles: PUBLIC_ACCESS }
         - { path: ^/board, roles: ROLE_USER }
 
 when@test:

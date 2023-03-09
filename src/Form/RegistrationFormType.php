@@ -54,7 +54,7 @@ class RegistrationFormType extends AbstractType
                     ]),
                 ]
             ])
-            # TO-DO : mettre un RepeatedType field
+            # TO-DO : mettre un RepeatedType field (faire entrer deux fois le mot de passe à l'utilisateur)
             ->add('plainPassword', PasswordType::class, [
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller

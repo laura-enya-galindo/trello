@@ -8,9 +8,6 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
-// Pour pouvoir ajouter des contraintes sur les input dans le formulaire UserType sur UserController
-use Symfony\Component\Validator\Constraints as Assert;
-
 // Pour créer le login
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;

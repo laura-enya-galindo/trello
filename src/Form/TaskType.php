@@ -3,16 +3,21 @@
 namespace App\Form;
 
 use App\Entity\Task;
+use App\Entity\User;
+
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 // use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 // use Symfony\Component\Intl\DateFormatter\IntlDateFormatter;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class TaskType extends AbstractType
 {
@@ -21,47 +26,35 @@ class TaskType extends AbstractType
         $builder
             # Le titre est un champs obligatoire
             ->add('title', TextType::class, [
-                'constraints' => [
-                    new NotBlank([
-                        'message' => 'Vous devez entrer un titre',
-                    ]),
-                    new Length([
-                        'min' => 2,
-                        'max' => 100,
-                        'minMessage' => 'Le titre doit contenir au moins {{ limit }} caractères',
-                        'maxMessage' => 'Le titre ne peut pas contenir plus de {{ limit }} caractères',
-                    ]),
                 'invalid_message' => "Le titre {{ value }} n'est pas un texte valide",
-            ]])
+            ])
+            // ])
             ->add('content', TextareaType::class, [
                 'invalid_message' => "Le contenu n'est pas un texte valide",
             ])
             # La date de création est un champs obligatoire
             ->add('created_at', DateType::class, [
-                'constraints' => [
-                    new NotBlank([
-                        'message' => 'Vous devez entrer une date de création du ticket',
-                    ]),
                 'invalid_message' => "La date {{ value }} n'est pas une date valide",
                 'widget' => 'choice',
-                'input'  => 'datetime_immutable',
-                'input_format' => 'd-m-Y',
-                # TO-DO: remove if it's not useful
                 'placeholder' => [
-                    'year' => 'YYYY', 'month' => 'mm', 'day' => 'dd',
+                    'year' => 'Année', 'month' => 'Mois', 'day' => 'Jour',
                 ],
                 // 'format' => IntlDateFormatter::SHORT,
-            ]])
+            ])
             ->add('updated_at', DateType::class, [
                 'invalid_message' => "La date {{ value }} n'est pas une date valide",
                 'widget' => 'choice',
-                'input_format' => 'd-m-Y',
+                'placeholder' => [
+                    'year' => 'Année', 'month' => 'Mois', 'day' => 'Jour',
+                ],
                 // 'format' => IntlDateFormatter::RELATIVE_SHORT,
             ])
             ->add('completed_at', DateType::class, [
                 'invalid_message' => "La date {{ value }} n'est pas une date valide",
                 'widget' => 'choice',
-                'input_format' => 'd-m-Y',
+                'placeholder' => [
+                    'year' => 'Année', 'month' => 'Mois', 'day' => 'Jour',
+                ],
                 // 'format' => IntlDateFormatter::SHORT,
             ])
             ->add('users', EntityType::class, [
@@ -73,17 +66,15 @@ class TaskType extends AbstractType
             
                 // used to render a select box, check boxes or radios
                 'multiple' => true,
-                // 'expanded' => true,
-
-                'constraints' => [
-                    new NotBlank([
-                        'message' => 'Vous devez assigner ce ticket à au moins un utilisateur',
-                    ]),
-                ]
-            ]);
-
+                'expanded' => true,
+            ])
             ->add('status', ChoiceType::class, [
-                
+                'choices' => [
+                    'Nouveau' => 'nouveau',
+                    'En cours' => 'en_cours',
+                    'Traité' => 'traite',
+                ],
+                'empty_data' => 'Nouveau',
             ])
         ;
     }

@@ -45,6 +45,7 @@ security:
         # Seulement un utilisateur connecté peut accéder au Board Controller
         # Si un utilisateur non connecté fait une requête URL vers le Board Controller, alors il sera redirigé vers le Login Controller
         - { path: ^/board, roles: ROLE_USER }
+        - { path: ^/task, roles: ROLE_USER }
 
 when@test:
     security:

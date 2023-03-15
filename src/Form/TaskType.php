@@ -27,6 +27,11 @@ class TaskType extends AbstractType
             # Le titre est un champs obligatoire
             ->add('title', TextType::class, [
                 'invalid_message' => "Le titre {{ value }} n'est pas un texte valide",
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Vous devez entrer un titre',
+                    ]),
+                ],
             ])
             // ])
             ->add('content', TextareaType::class, [
@@ -61,6 +66,7 @@ class TaskType extends AbstractType
                 // looks for choices from this entity
                 'class' => User::class,
             
+                # TO-DO : traiter le cas des homonymes
                 // uses the User.last_name property as the visible option string
                 'choice_label' => 'last_name',
             
@@ -74,8 +80,10 @@ class TaskType extends AbstractType
                     'En cours' => 'en_cours',
                     'Traité' => 'traite',
                 ],
+                # Le ticket a le statut "Nouveau" par défaut
                 'empty_data' => 'Nouveau',
             ])
+            # comment enregistrer l'input de l'utilisateur dans les données de l'entité "Statut" en BDD ? est-ce qu'il faut le faire ? où le coder alors ?
         ;
     }
 

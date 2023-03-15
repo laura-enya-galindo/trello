@@ -22,16 +22,17 @@ class TaskController extends AbstractController
     //     ]);
     // }
 
-    #[Route('/task', name: 'app_new_task')]
+    #[Route('/task', name: 'app_create_task')]
     public function editTask(Request $request, EntityManagerInterface $entityManager): Response
     {
-        $task = new Task();  
+        $task = new Task(); 
         $form = $this->createForm(TaskType::class, $task);
         // dd($form);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($task);
-            $entityManager->flush();
+            // $entityManager->persist($task);
+            // $entityManager->flush();
+            $task = $form->getData();
         }
         return $this->render('task/index.html.twig',
         [

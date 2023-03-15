@@ -84,6 +84,7 @@ class TaskType extends AbstractType
                 'empty_data' => 'Nouveau',
             ])
             # comment enregistrer l'input de l'utilisateur dans les données de l'entité "Statut" en BDD ? est-ce qu'il faut le faire ? où le coder alors ?
+            # ou alors mettre EntityType et mettre les trois options en données pour l'entité "Statut" ?
         ;
     }
 

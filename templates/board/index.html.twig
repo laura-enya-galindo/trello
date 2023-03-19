@@ -25,14 +25,8 @@
     
 </style>
 
-<style>
-
-
-
-
-</style>
-
 <a href="/logout">Se déconnecter</a>
+
 <h1>Bienvenue sur Trello Like</h1>
 
 <h4>Pour ajouter une tâche, cliquez <a href="/task">ici</a>.</h4>
@@ -43,15 +37,23 @@
 		<th>ID</th>
 		<th>Titre</th>
 		<th>Contenu</th>
+        <th>Date de création</th>
+        <th>Date de modification</th>
+        <th>Date de fin prévue</th>
+        {# <th>Statut</th> #}
+        {# <th>Utilisateur(s)</th> #}
 	</tr>
 
     {% for task in task %}
 
 		<tr>
-		    <td>{{ task.id }} </td>
-			<td>{{ task.title }} </td>
-			<td>{{ task.content }} </td>
-			{# <td>{{ task.created_at|date("d/m/Y") }} </td> #}
+		    <td>{{ task.id }}</td>
+			<td>{{ task.title }}</td>
+			<td>{{ task.content }}</td>
+            <td>{{ task.createdAt|date("d/m/Y") }}</td>
+            <td>{{ task.updatedAt|date("d/m/Y") }}</td>
+            <td>{{ task.completedAt|date("d/m/Y") }}</td>
+
 		</tr>
 
     {% endfor %}

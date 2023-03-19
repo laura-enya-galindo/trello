@@ -47,4 +47,22 @@ class TaskController extends AbstractController
 
         }
     }
+
+    #[Route('/task/{id}', name: 'app_task_show')]
+    public function showTask(EntityManagerInterface $entityManager, int $id): Response
+    {
+        $task = $entityManager->getRepository(Task::class)->find($id);
+
+        if (!$task) {
+            throw $this->createNotFoundException(
+                'Pas de ticket trouvé avec id '.$id
+            );
+        }
+
+        return new Response('Allez voir ce ticket: '.$task->getName());
+
+        // or render a template
+        // in the template, print things with {{ task.name }}
+        // return $this->render('task/show.html.twig', ['product' => $product]);
+    }
 }

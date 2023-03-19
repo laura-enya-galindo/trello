@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Task;
 use App\Entity\User;
+use App\Entity\Status;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -71,14 +72,11 @@ class TaskType extends AbstractType
                 'multiple' => true,
                 'expanded' => true,
             ])
-            ->add('status', ChoiceType::class, [
-                'choices' => [
-                    'Nouveau' => 'nouveau',
-                    'En cours' => 'en_cours',
-                    'Traité' => 'traite',
-                ],
-                # Le ticket a le statut "Nouveau" par défaut
-                'empty_data' => 'Nouveau',
+            ->add('status', EntityType::class, [
+                'class' => Status::class,
+                'choice_label' => 'label',
+                'multiple' => false,
+                'expanded' => false,
             ])
             # comment enregistrer l'input de l'utilisateur dans les données de l'entité "Statut" en BDD ? est-ce qu'il faut le faire ? où le coder alors ?
             # ou alors mettre EntityType et mettre les trois options en données pour l'entité "Statut" ?

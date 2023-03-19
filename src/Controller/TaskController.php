@@ -12,32 +12,39 @@ use App\Form\TaskType;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface;
 
+
 class TaskController extends AbstractController
 {
-    // #[Route('/task', name: 'app_task')]
-    // public function index(): Response
-    // {
-    //     return $this->render('task/index.html.twig', [
-    //         'controller_name' => 'TaskController',
-    //     ]);
-    // }
-
-    #[Route('/task', name: 'app_create_task')]
-    public function editTask(Request $request, EntityManagerInterface $entityManager): Response
+    #[Route('/task', name: 'app_task')]
+    public function index(): Response
     {
-        $task = new Task(); 
-        $form = $this->createForm(TaskType::class, $task);
-        // dd($form);
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            // $entityManager->persist($task);
-            // $entityManager->flush();
-            $task = $form->getData();
-        }
-        return $this->render('task/index.html.twig',
-        [
-            'taskForm' => $form,
+        return $this->render('task/index.html.twig', [
+            'controller_name' => 'TaskController',
         ]);
     }
 
+    #[Route('/task/new', name: 'app_task_create')]
+    public function createTask(Request $request, EntityManagerInterface $entityManager, int $id = null): Response
+    {
+        // création d'une instance de l'entité Task
+        $task = new Task();
+
+        // dans l'abstract controller, on crée un formulaire de type Task et on y passe notre variable task
+        $form = $this->createForm(TaskType::class, $task);   
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->persist($task);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_task');
+
+        // au render je donne le nom du template que je veux et je donne la view (le contenu et tout) du formulaire
+        return $this->render('task/index.html.twig',
+        [
+            'taskForm' => $form->createView(),
+        ]);
+
+        }
+    }
 }

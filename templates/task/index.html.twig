@@ -22,13 +22,13 @@
             label: 'Date de complétion : ' 
         }) }}
         {{ form_row(taskForm.users, {
-            label: 'Assigné à : ' 
+            label: 'Assigné à : '
         }) }}
         {{ form_row(taskForm.status, {
             label: 'Statut : ' 
         }) }}
 
-        <button type="submit">Ajouter</button>
+        <button type="submit" class="btn">Ajouter</button>
     {{ form_end(taskForm) }}
 
 {% endblock %}

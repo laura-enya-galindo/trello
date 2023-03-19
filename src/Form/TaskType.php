@@ -44,7 +44,6 @@ class TaskType extends AbstractType
                 'placeholder' => [
                     'year' => 'Année', 'month' => 'Mois', 'day' => 'Jour',
                 ],
-                // 'format' => IntlDateFormatter::SHORT,
             ])
             ->add('updated_at', DateType::class, [
                 'invalid_message' => "La date {{ value }} n'est pas une date valide",
@@ -52,7 +51,6 @@ class TaskType extends AbstractType
                 'placeholder' => [
                     'year' => 'Année', 'month' => 'Mois', 'day' => 'Jour',
                 ],
-                // 'format' => IntlDateFormatter::RELATIVE_SHORT,
             ])
             ->add('completed_at', DateType::class, [
                 'invalid_message' => "La date {{ value }} n'est pas une date valide",
@@ -60,7 +58,6 @@ class TaskType extends AbstractType
                 'placeholder' => [
                     'year' => 'Année', 'month' => 'Mois', 'day' => 'Jour',
                 ],
-                // 'format' => IntlDateFormatter::SHORT,
             ])
             ->add('users', EntityType::class, [
                 // looks for choices from this entity

@@ -3,9 +3,59 @@
 {% block title %}Trello{% endblock %}
 
 {% block body %}
+
+<style>
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    td, th {
+        border: 1px solid #DDD;
+        text-align: left;
+        padding: 8px;
+    }
+
+    {# tr:nth-child(even) {
+        background-color: #dddddd;
+    } #}
+
+    tr:hover {background-color: #f0f9ff;}
+    
+</style>
+
+<style>
+
+
+
+
+</style>
+
 <a href="/logout">Se déconnecter</a>
 <h1>Bienvenue sur Trello Like</h1>
 
 <h4>Pour ajouter une tâche, cliquez <a href="/task">ici</a>.</h4>
+
+<table>
+
+	<tr>
+		<th>ID</th>
+		<th>Titre</th>
+		<th>Contenu</th>
+	</tr>
+
+    {% for task in task %}
+
+		<tr>
+		    <td>{{ task.id }} </td>
+			<td>{{ task.title }} </td>
+			<td>{{ task.content }} </td>
+			{# <td>{{ task.created_at|date("d/m/Y") }} </td> #}
+		</tr>
+
+    {% endfor %}
+
+	</table>
 
 {% endblock %}

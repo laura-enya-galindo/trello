@@ -16,14 +16,6 @@ use Doctrine\ORM\EntityManagerInterface;
 class TaskController extends AbstractController
 {
     #[Route('/task', name: 'app_task')]
-    public function index(): Response
-    {
-        // return $this->render('task/index.html.twig', [
-        //     'controller_name' => 'TaskController',
-        // ]);
-    }
-
-    #[Route('/task/new', name: 'app_task_create')]
     public function createTask(Request $request, EntityManagerInterface $entityManager, int $id = null): Response
     {
         // création d'une instance de l'entité Task
@@ -58,10 +50,11 @@ class TaskController extends AbstractController
             );
         }
 
-        return new Response('Allez voir ce ticket: '.$task->getName());
+        return new Response('Allez voir le ticket: '.$task->getTitle());
+        # TO-DO: avoir un template stylisé pour représenter un ticket
 
         // or render a template
         // in the template, print things with {{ task.name }}
-        // return $this->render('task/show.html.twig', ['product' => $product]);
+        // return $this->render('task/show.html.twig', ['task' => $task]);
     }
 }

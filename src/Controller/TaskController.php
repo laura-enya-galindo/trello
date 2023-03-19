@@ -18,9 +18,9 @@ class TaskController extends AbstractController
     #[Route('/task', name: 'app_task')]
     public function index(): Response
     {
-        return $this->render('task/index.html.twig', [
-            'controller_name' => 'TaskController',
-        ]);
+        // return $this->render('task/index.html.twig', [
+        //     'controller_name' => 'TaskController',
+        // ]);
     }
 
     #[Route('/task/new', name: 'app_task_create')]
@@ -37,15 +37,14 @@ class TaskController extends AbstractController
             $entityManager->persist($task);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_task');
+            return $this->redirectToRoute('app_board');
+        }
 
         // au render je donne le nom du template que je veux et je donne la view (le contenu et tout) du formulaire
         return $this->render('task/index.html.twig',
         [
             'taskForm' => $form->createView(),
         ]);
-
-        }
     }
 
     #[Route('/task/{id}', name: 'app_task_show')]

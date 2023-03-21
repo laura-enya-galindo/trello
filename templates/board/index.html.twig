@@ -31,7 +31,7 @@
 
 <h4>Pour ajouter une tâche, cliquez <a href="/task">ici</a>.</h4>
 
-{# TO-DO: ajouter colonnes "Statut" et "Utilisateur(s)" #}
+{# TO-DO: ajouter colonne "Utilisateur(s)" #}
 
 <table>
 
@@ -39,10 +39,10 @@
 		<th>ID</th>
 		<th>Titre</th>
 		<th>Contenu</th>
+        <th>Statut</th>
         <th>Date de création</th>
         <th>Date de modification</th>
         <th>Date de fin prévue</th>
-        {# <th>Statut</th> #}
         {# <th>Utilisateur(s)</th> #}
 	</tr>
 
@@ -52,10 +52,11 @@
 		    <td>{{ task.id }}</td>
 			<td>{{ task.title }}</td>
 			<td>{{ task.content }}</td>
+            <td>{{ task.status.label }}</td>
             <td>{{ task.createdAt|date("d/m/Y") }}</td>
             <td>{{ task.updatedAt|date("d/m/Y") }}</td>
             <td>{{ task.completedAt|date("d/m/Y") }}</td>
-
+            {# <td>{{ task.users.id }}</td> #}
 		</tr>
 
     {% endfor %}

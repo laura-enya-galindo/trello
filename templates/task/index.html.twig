@@ -3,6 +3,7 @@
 {% block title %}Création d'une tâche{% endblock %}
 
 {% block body %}
+    
     <h1>Ajouter une nouvelle tâche</h1>
     
     {{ form_start(taskForm) }}
@@ -31,6 +32,8 @@
         <button type="submit" class="btn">Ajouter</button>
         
     {{ form_end(taskForm) }}
+
+    <h4>Pour retourner sur la liste des tâches, cliquez <a href="/board">ici</a>.</h4>
 
 {% endblock %}
 

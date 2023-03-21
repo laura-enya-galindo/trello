@@ -42,6 +42,7 @@ class TaskType extends AbstractType
             ->add('created_at', DateType::class, [
                 'invalid_message' => "La date {{ value }} n'est pas une date valide",
                 'widget' => 'choice',
+                'format' => 'dd MM yyyy',
                 'placeholder' => [
                     'year' => 'Année', 'month' => 'Mois', 'day' => 'Jour',
                 ],
@@ -49,6 +50,7 @@ class TaskType extends AbstractType
             ->add('updated_at', DateType::class, [
                 'invalid_message' => "La date {{ value }} n'est pas une date valide",
                 'widget' => 'choice',
+                'format' => 'dd MM yyyy',
                 'placeholder' => [
                     'year' => 'Année', 'month' => 'Mois', 'day' => 'Jour',
                 ],
@@ -56,6 +58,7 @@ class TaskType extends AbstractType
             ->add('completed_at', DateType::class, [
                 'invalid_message' => "La date {{ value }} n'est pas une date valide",
                 'widget' => 'choice',
+                'format' => 'dd MM yyyy',
                 'placeholder' => [
                     'year' => 'Année', 'month' => 'Mois', 'day' => 'Jour',
                 ],
@@ -64,9 +67,9 @@ class TaskType extends AbstractType
                 // looks for choices from this entity
                 'class' => User::class,
             
-                # TO-DO : traiter le cas des homonymes
-                // uses the User.last_name property as the visible option string
-                'choice_label' => 'last_name',
+                'choice_label' => function (User $users) {
+                    return substr($users->getFirstName(), 0, 1) . '. ' . $users->getLastName() . ' ' . $users->getId();
+                },
             
                 // used to render a select box, check boxes or radios
                 'multiple' => true,

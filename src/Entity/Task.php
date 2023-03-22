@@ -148,3 +148,9 @@ class Task
     }
     
 }
+
+# https://symfonycasts.com/screencast/collections/many-to-many-setup
+# https://www.elao.com/blog/dev/les-attributs-php-8-dans-symfony#doctrine
+# https://www.doctrine-project.org/projects/doctrine-orm/en/2.14/reference/attributes-reference.html#manytomany
+# https://www.doctrine-project.org/projects/doctrine-orm/en/2.14/reference/attributes-reference.html#jointable
+# https://www.doctrine-project.org/projects/doctrine-orm/en/2.14/reference/attributes-reference.html#joincolumn-inversejoincolumn

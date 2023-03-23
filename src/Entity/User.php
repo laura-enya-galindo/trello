@@ -37,14 +37,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column]
     private ?string $password;
-
-    # TO-DO : if syntax incorrect, try the one here : 
-    # https://stackoverflow.com/questions/72863415/doctrine-migrations-not-creating-join-table
     
     #[ORM\ManyToMany(targetEntity: Task::class, inversedBy: 'users')]
-    #[ORM\JoinTable(name: "user_task")]
-    #[ORM\JoinColumn(name: "user_id", referencedColumnName: "id")]
-    #[ORM\InverseJoinColumn(name: "task_id", referencedColumnName: "id")]
+    #[ORM\JoinTable(name: 'user_task')]
+    #[ORM\JoinColumn(name: 'user_id', referencedColumnName: 'id')]
+    #[ORM\InverseJoinColumn(name: 'task_id', referencedColumnName: 'id')]
     private Collection $tasks;
 
     public function __construct()
@@ -183,3 +180,5 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
     
 }
+
+# https://stackoverflow.com/questions/72863415/doctrine-migrations-not-creating-join-table

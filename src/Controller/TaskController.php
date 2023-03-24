@@ -16,45 +16,33 @@ use Doctrine\ORM\EntityManagerInterface;
 class TaskController extends AbstractController
 {
     #[Route('/task', name: 'app_task')]
-    public function createTask(Request $request, EntityManagerInterface $entityManager, int $id = null): Response
+    #[Route('task/{id}', name: 'app_task_edit')]
+    public function editTask(Request $request, EntityManagerInterface $entityManager, int $id = null): Response
     {
-        // création d'une instance de l'entité Task
         $task = new Task();
 
-        // dans l'abstract controller, on crée un formulaire de type Task et on y passe notre variable task
-        $form = $this->createForm(TaskType::class, $task);   
+        if ($id === null) {
+            $task = new Task();
+        } else {
+            $task = $entityManager->getRepository(Task::class)->find($id);
+        }
+
+        $form = $this->createForm(TaskType::class, $task);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($task);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_board');
+            return $this->redirectToRoute('app_task_edit', [
+                'id' => $task->getId()
+            ]);
         }
 
-        // au render je donne le nom du template que je veux et je donne la view (le contenu et tout) du formulaire
         return $this->render('task/index.html.twig',
         [
             'taskForm' => $form->createView(),
-        ]);
+        ]); 
     }
 
-    #[Route('/task/{id}', name: 'app_task_show')]
-    public function showTask(EntityManagerInterface $entityManager, int $id): Response
-    {
-        $task = $entityManager->getRepository(Task::class)->find($id);
-
-        if (!$task) {
-            throw $this->createNotFoundException(
-                'Pas de ticket trouvé avec id '.$id
-            );
-        }
-
-        return new Response('Allez voir le ticket: '.$task->getTitle());
-        # TO-DO: avoir un template stylisé pour représenter un ticket
-
-        // or render a template
-        // in the template, print things with {{ task.name }}
-        // return $this->render('task/show.html.twig', ['task' => $task]);
-    }
 }
